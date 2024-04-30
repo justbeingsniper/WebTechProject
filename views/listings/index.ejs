@@ -1,0 +1,41 @@
+<% layout('/layout/boilerplate') -%>
+  <body>
+    <!-- we are using flash message successMsg -->
+    <% if (successMsg && successMsg.length) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: green;font-weight: bolder;"><%= successMsg %> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+     
+    <% } %>
+    <% if (errorMsg && errorMsg.length) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: brown;font-weight: bolder;"><%= errorMsg %> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+     
+    <% } %>
+   
+    <h3>All Listings</h3>
+    <!-- as we have added it in navbar not required -->
+    <!-- <form method="GET" action="/listings/new">
+      <button>Create New Listing</button>
+    </form> -->
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let listing of allListings) { %>
+    <div class="card col listing-card" >
+      <img src="<%= listing.image %>" class="card-img-top" alt="...">
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <h5 class="card-title"><%= listing.title %></h5>
+        <p class="card-text"><%= listing.description %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% if (listing && listing.price !== null) { %>
+        <li class="list-group-item">&#8377; <%= listing.price.toLocaleString("en-IN") %>/ night</li> <% }%>
+        <li class="list-group-item"><%= listing.location %> &nbsp;, <%= listing.country %></li>
+        <li class="list-group-item"><form action="/listings/<%= listing._id %>"><button class="btn btn-dark">Show In Detail</button></form></li>
+      </ul>
+    </div>
+    <% } %>
+  </div>
+    <!-- # has been only used for commenting below  -->
+    <!-- <ul>
+      <%# for(let listing of allListings) { %>
+        <li><a href="/listing/<%#= listing.id %>"><%#= listing.title %><a></li>
+    </ul>-->
+  </body>
